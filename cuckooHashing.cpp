@@ -1,4 +1,4 @@
-#include "cucckoHashing.h"
+#include "cuckooHashing.h"
 #include <iostream>
 #include <vector>
 
@@ -7,15 +7,15 @@ cuckooHashing::cuckooHashing(int size) : size(size){
     table2.resize(size, "");
 }
 
-int CuckooHashing::hash1(int key) {
+int cuckooHashing::hash1(int key) {
     return key % size;
 }
 
-int CuckooHashing::hash2(int key) {
+int cuckooHashing::hash2(int key) {
     return (key / size) % size;
 }
 
-void CuckooHashing::insert(const std::string& key) {
+void cuckooHashing::insert(string& key) {
     int pos1 = hash1(std::stoi(key));
     if (table1[pos1].empty()) {
         table1[pos1] = key;
@@ -37,7 +37,7 @@ void CuckooHashing::insert(const std::string& key) {
     }
 }
 
-bool CuckooHashing::search(const std::string& key) {
+bool cuckooHashing::search(string& key) {
     int pos1 = hash1(std::stoi(key));
     if (table1[pos1] == key) return true;
     int pos2 = hash2(std::stoi(key));

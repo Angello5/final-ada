@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void saveUserData(vector<UserData>& users, string& filename){
+void saveUserData(const vector<UserData>& users, const string& filename){
     ofstream file(filename);
         for(auto& user : users){
             file<< user.dni<< "," <<user.nombreCompleto<<"," <<user.nacionalidad<<","
@@ -14,11 +14,12 @@ void saveUserData(vector<UserData>& users, string& filename){
     file.close();
 }
 
-vector<UserData> loadUserData(string& filename){
+vector<UserData> loadUserData(const string& filename){
     vector<UserData> users;
     ifstream file(filename);
     string line;
-    while(getline(file,line));
+
+    while(getline(file,line)){
     istringstream ss(line);
     UserData user;
     getline(ss,user.dni,',');
@@ -30,6 +31,7 @@ vector<UserData> loadUserData(string& filename){
     getline(ss,user.email,',');
     getline(ss,user.estadoCivil,',');
     users.push_back(user);
-}
+    }
 file.close();
 return users;
+}

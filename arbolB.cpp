@@ -66,12 +66,11 @@ shared_ptr<UserData> BTreeNode::search(string& k){
     return children[i]->search(k);
 }
 
-
-BTree::BTree(int _t) : t(_t) {
+Btree::Btree(int _t) : t(_t) {
     root = nullptr;
 }
 
-BTree::~BTree() {
+Btree::~Btree() {
     delete root;
 }
 
@@ -79,7 +78,7 @@ void Btree::traverse(){
     if(root != nullptr) root->traverse();
 }
 
-void BTree::insert(string& k, shared_ptr<UserData>& data) {
+void Btree::insert(string& k, shared_ptr<UserData>& data) {
     if (root == nullptr) {
         root = new BTreeNode(t, true);
         root->keys.push_back(k);

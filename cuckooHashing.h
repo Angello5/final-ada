@@ -17,7 +17,7 @@ private:
 public:
     cuckooHashing(int size);
     void insert(string& key);
-    void search(string& key);
+    bool search(string& key);
 };
 
 

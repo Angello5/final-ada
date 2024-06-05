@@ -32,7 +32,6 @@ class Btree
     public:
         BTreeNode* root;
         int t;
-
         Btree(int t);
         ~Btree();
         void traverse();
