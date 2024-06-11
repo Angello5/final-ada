@@ -29,14 +29,14 @@ int main(){
     for(int i = 0;i<1000;i++){
         uint64_t dni = dist(gen);
         UserData userData;
-        userData->dni = dni;
-        userData->nombreCompleto = nombres[i % nombres.size()] + "_" + to_string(i);
-        userData->nacionalidad = "Nacionalidad_" + to_string(i);
-        userData->birthPlace = "Lugar de Nacimiento_" + to_string(i);
-        userData->direccion = "Direccion_" + to_string(i);
-        userData->telefono = "Telefono_" + to_string(i);
-        userData->email = "Email_" + to_string(i);
-        userData->estadoCivil = "EstadoCivil_" + to_string(i);
+        userData.dni = dni;
+        userData.nombreCompleto = nombres[i % nombres.size()] + "_" + to_string(i);
+        userData.nacionalidad = "Nacionalidad_" + to_string(i);
+        userData.birthPlace = "Lugar de Nacimiento_" + to_string(i);
+        userData.direccion = "Direccion_" + to_string(i);
+        userData.telefono = "Telefono_" + to_string(i);
+        userData.email = "Email_" + to_string(i);
+        userData.estadoCivil = "EstadoCivil_" + to_string(i);
 
         users.push_back(userData);
 

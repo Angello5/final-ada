@@ -1,24 +1,25 @@
+// cuckooHashing.h
 #ifndef CUCKOOHASHING_H
 #define CUCKOOHASHING_H
+
+
 #include <vector>
-#include <string>
+#include <cstdint>  // Para usar uint64_t
 
 using namespace std;
 
-class cuckooHashing
-{
-private:
-    vector<string> table1, table2;
-    int size;
-    int hash1(int key);
-    int hash2(int key);
-    void rehash();
-    
+
+class cuckooHashing {
 public:
-    cuckooHashing(int size);
-    void insert(string& key);
-    bool search(string& key);
+    cuckooHashing(size_t size);
+    bool search(const uint64_t& key) const;
+    void insert(const uint64_t& key);
+
+private:
+    size_t hash1(const uint64_t& key) const;
+    size_t hash2(const uint64_t& key) const;
+    vector<int64_t> table1;
+    vector<int64_t> table2;
 };
 
-
-#endif
+#endif 

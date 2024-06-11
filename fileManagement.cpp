@@ -33,7 +33,7 @@ vector<UserData> loadUserData(const string& filename){
 
     while(file){
         UserData user;
-        file.read(reinterpret_cast<char*>(user.dni), sizeo(user.dni));
+        file.read(reinterpret_cast<char*>(user.dni), sizeof(user.dni));
 
         auto readString = [&file]() {
             size_t size;
