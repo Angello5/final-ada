@@ -2,12 +2,13 @@
 #define USERDATA_H
 #include <string>
 #include <memory>
+#include <cstdint>
 
 using namespace std;
 
 struct UserData
 {
-    string dni;
+    uint64_t dni;
     string nombreCompleto;
     string nacionalidad;
     string birthPlace;

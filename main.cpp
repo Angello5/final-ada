@@ -1,36 +1,34 @@
 #include "arbolB.h"
 #include "fileManagement.h"
 #include "cuckooHashing.h"
-#include <boost/random.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <memory>
+#include <random>
 
 using namespace std;
 
-string generateRandomDNI(boost::random::mt19937& gen){
-    boost::random::uniform_int_distribution<> dist(10000000, 99999999); // Rango para DNIs de 8 dígitos
-    int random_dni = dist(gen);
-    return to_string(random_dni);
-}
 
 int main(){
-    boost::random::mt19937 gen(time(0));
+
+    random_device rd;
+    mt19937_64 gen(rd());
+    uniform_int_distribution<uint64_t> dist(1000000000000, 9999999999999);
 
     vector<string> nombres ={"Carlos","Angello","Marcelo","Federico","Valeska","Emmanuel",
     "Samuel","Namir","Ysabel","Renzo","Erick","Esteban","Julia","Brenda","Ariana","Manuela",
     "Estefano","Araceli","Gabriel","Victor","Angel","Valentina","Valeria","Italo","Sofia","Amber",
     "Peter","Kevin","Gwen","Miguel","Daniela","Daniel","Tomas"};
 
-    Btree tree(10);
+    Btree tree(3);
     cuckooHashing cuckoo(100003);
 
+    vector<UserData> users;
+
     for(int i = 0;i<1000;i++){
-        string dni=generateRandomDNI(gen);
-        shared_ptr<UserData> userData = make_shared<UserData>();
+        uint64_t dni = dist(gen);
+        UserData userData;
         userData->dni = dni;
         userData->nombreCompleto = nombres[i % nombres.size()] + "_" + to_string(i);
         userData->nacionalidad = "Nacionalidad_" + to_string(i);
@@ -40,16 +38,23 @@ int main(){
         userData->email = "Email_" + to_string(i);
         userData->estadoCivil = "EstadoCivil_" + to_string(i);
 
+        users.push_back(userData);
+
         if(!cuckoo.search(dni)){
             cuckoo.insert(dni);
-            tree.insert(dni,userData);
+            tree.insert(dni,make_shared<UserData>(userData));
         }
     }
 
     //guarda datos
-    vector<UserData> users;
-    saveUserData(users,"user_data.txt");
+    string filename = "user_data.dat";
+    saveUserData(users,filename);
 
-    //carga datos
-    users = loadUserData("user_data.txt");
+   vector<UserData> loadedUsers = loadUserData(filename);
+
+    for (const auto& user : loadedUsers) {
+        cout << "DNI: " << user.dni << ", Nombre: " << user.nombreCompleto << endl;
+    }
+
+    return 0;
 }
